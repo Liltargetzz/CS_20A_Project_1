@@ -5,30 +5,14 @@ class Matrix;
 class Simulation;
 class Life {
 public:
-	int getCol() const {
-		return col;
-	}
-	int getRow() const {
-		return row;
-	}
-	int getHeight() const {
-		return height;
-	}
-	int getWidth() const {
-		return width;
-	}
-	char getFigure(int r, int c) const {
-		return sprite[r][c];
-	}
-	void inMatrix(Matrix* m) {
-		matrix = m;
-	}
-	void inSimulation(Simulation* s) {
-		simulation = s;
-	}
-	bool areWeInASimulation() {
-		return simulation != nullptr;
-	}
+	int getCol() const;
+	int getRow() const;
+	int getHeight() const;
+	int getWidth() const;
+	char getFigure(int r, int c) const;
+	void inMatrix(Matrix* m);
+	void inSimulation(Simulation* s);
+	bool areWeInASimulation();
 protected:
 	int col;
 	int row;
