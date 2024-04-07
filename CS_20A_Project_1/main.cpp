@@ -12,15 +12,6 @@
 #include "matrix.h"
 #include "simulation.h"
 
-/*
-#ifdef _MSC_VER  // DO NOT BREAK APART THE IF PREPROCESSOR DIRECTIVES
-#include <windows.h> 
-#else			
-#include <iostream>
-#include <cstring>
-#include <cstdlib>
-#endif			
-*/
 
 int main() {
 
@@ -32,19 +23,14 @@ int main() {
 	population[2] = new BigBlink(3, 13);
 	population[3] = new Box(9, 13);
 
-	// Create the game
 	Simulation s(population, numLife);
 
-	// Debugger Exercise
 	s.one('n' - 'j');
 
-	// Run the game
 	s.simulate();
 
-	// Report
 	s.report();
 
-	// Clean up
 	delete population[0];
 	delete population[1];
 	delete population[2];
