@@ -3,6 +3,10 @@
 #include <cstdlib>
 #include <chrono>
 #include <thread>
+#include "life.h"
+#include "global.h"
+#include "snake.h"
+#include "box.h"
 
 #ifdef _MSC_VER  // DO NOT BREAK APART THE IF PREPROCESSOR DIRECTIVES
 #include <windows.h> 
@@ -11,132 +15,6 @@
 #include <cstring>
 #include <cstdlib>
 #endif			
-
-
-///////////////////////////////////////////////////////////////////////////
-// Global Constants
-///////////////////////////////////////////////////////////////////////////
-
-const int CANVAS_ROW = 24;
-const int CANVAS_COL = 24;
-
-const int BOX_SIZE = 2;
-const int SNAKE_SIZE = 4;
-const int BIGBLINK_SIZE = 9;
-const int BOAT_SIZE = 3;
-
-const int MAX_STEPS = 30;
-
-const char ALIVE = 'X';
-const char DEAD = '.';
-
-
-///////////////////////////////////////////////////////////////////////////
-// Type Definitions
-///////////////////////////////////////////////////////////////////////////
-
-class Matrix;
-class Simulation;
-class Life {
-public:
-	int getCol() const {
-		return col;
-	}
-	int getRow() const {
-		return row;
-	}
-	int getHeight() const {
-		return height;
-	}
-	int getWidth() const {
-		return width;
-	}
-	char getFigure(int r, int c) const {
-		return sprite[r][c];
-	}
-	void inMatrix(Matrix* m) {
-		matrix = m;
-	}
-	void inSimulation(Simulation* s) {
-		simulation = s;
-	}
-	bool areWeInASimulation() {
-		return simulation != nullptr;
-	}
-protected:
-	int col;
-	int row;
-	int height;
-	int width;
-	char** sprite;
-	Matrix* matrix;
-	Simulation* simulation;
-};
-
-class Snake : public Life {
-public:
-	Snake(int r, int c) {
-		col = c;
-		row = r;
-		height = SNAKE_SIZE;
-		width = SNAKE_SIZE;
-
-		//Allocate space for figure
-		sprite = new char* [height];
-		for (int i = 0; i < height; i++) {
-			sprite[i] = new char[width];
-		}
-
-		//Initialize figure
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				sprite[i][j] = DEAD;
-			}
-		}
-		sprite[0][0] = ALIVE;
-		sprite[1][0] = ALIVE;
-		sprite[1][1] = ALIVE;
-		sprite[0][2] = ALIVE;
-		sprite[0][3] = ALIVE;
-		sprite[1][3] = ALIVE;
-	}
-	~Snake() {
-		for (int i = 0; i < height; i++) {
-			delete[] sprite[i];
-		}
-		delete[] sprite;
-	}
-};
-
-class Box : public Life {
-public:
-	Box(int r, int c) {
-		col = c;
-		row = r;
-		height = BOX_SIZE;
-		width = BOX_SIZE;
-
-		//Allocate space for figure
-		sprite = new char* [height];
-		for (int i = 0; i < height; i++) {
-			sprite[i] = new char[width];
-		}
-
-		//Initialize figure
-		for (int i = 0; i < height; i++) {
-			for (int j = 0; j < width; j++) {
-				sprite[i][j] = ALIVE;
-			}
-		}
-
-	}
-	~Box() {
-		for (int i = 0; i < height; i++) {
-			delete[] sprite[i];
-		}
-		delete[] sprite;
-	}
-};
 
 class Boat : public Life {
 public:
